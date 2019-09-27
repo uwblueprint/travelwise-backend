@@ -1,11 +1,8 @@
 {
-    "compilerOptions": {
-        "outDir": "./dist",
-        "allowJs": true,
-        "target": "es5"
-    },
-        "include": [
-        "./routes/**/*",
-        "./app.ts"
-    ]
+  "compilerOptions": {
+    "outDir": "./dist",
+    "allowJs": true,
+    "target": "es5"
+  },
+  "include": ["./**/*.ts"]
 }
