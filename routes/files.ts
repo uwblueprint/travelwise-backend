@@ -14,11 +14,12 @@ const s3 = new AWS.S3({
 router.post("/upload", upload.single("file"), function(req, res) {
   const { file } = req;
   const { companyId, title } = req.body;
+  const key = `${file.originalname}:${Date.now()}`;
   try {
     s3.upload(
       {
         Bucket: "travelwise-test",
-        Key: `${file.originalname}:${Date.now()}`,
+        Key: key,
         Body: file.buffer
       },
       (err, { Location }) => {
@@ -26,7 +27,12 @@ router.post("/upload", upload.single("file"), function(req, res) {
         client
           .mutate({
             mutation: ADD_FILE,
-            variables: { companyId, location: Location, title }
+            variables: {
+              companyId,
+              location: Location,
+              title: title ? title : file.originalname,
+              key
+            }
           })
           .then(({ data }) => {
             res.send(data.insert_files.returning);
