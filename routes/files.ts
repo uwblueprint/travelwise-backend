@@ -17,7 +17,7 @@ router.post("/", upload.single("file"), function(req, res, next) {
   s3.upload(
     {
       Bucket: "travelwise-test",
-      Key: file.originalname,
+      Key: `${file.originalname}:${Date.now()}`,
       Body: file.buffer
     },
     (err, { Location }) => {
