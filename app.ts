@@ -34,7 +34,7 @@ app.use(cors(corsOptions));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/upload', filesRouter);
+app.use('/files', filesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

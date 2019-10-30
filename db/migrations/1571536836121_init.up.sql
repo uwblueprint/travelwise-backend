@@ -37,6 +37,18 @@ CREATE SEQUENCE public.companies_id_seq
     NO MAXVALUE
     CACHE 1;
 ALTER SEQUENCE public.companies_id_seq OWNED BY public.companies.id;
+CREATE SEQUENCE public.files_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+CREATE TABLE public.files (
+    id integer DEFAULT nextval('public.files_id_seq'::regclass) NOT NULL,
+    company_id integer NOT NULL,
+    title character varying NOT NULL,
+    location character varying NOT NULL
+);
 CREATE TABLE public.options (
     id integer NOT NULL,
     question_id integer,
@@ -109,6 +121,10 @@ ALTER TABLE ONLY public.companies
     ADD CONSTRAINT companies_name_key UNIQUE (name);
 ALTER TABLE ONLY public.companies
     ADD CONSTRAINT companies_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.files
+    ADD CONSTRAINT files_location_key UNIQUE (location);
+ALTER TABLE ONLY public.files
+    ADD CONSTRAINT files_pkey PRIMARY KEY (id);
 ALTER TABLE ONLY public.options
     ADD CONSTRAINT options_pkey PRIMARY KEY (id);
 ALTER TABLE ONLY public.questions
@@ -127,6 +143,8 @@ ALTER TABLE ONLY public.answers
     ADD CONSTRAINT answers_question_id_fkey FOREIGN KEY (question_id) REFERENCES public.questions(id);
 ALTER TABLE ONLY public.categories
     ADD CONSTRAINT categories_scorecard_id_fkey FOREIGN KEY (scorecard_id) REFERENCES public.scorecards(id);
+ALTER TABLE ONLY public.files
+    ADD CONSTRAINT files_company_id_fkey FOREIGN KEY (company_id) REFERENCES public.companies(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE ONLY public.options
     ADD CONSTRAINT options_question_id_fkey FOREIGN KEY (question_id) REFERENCES public.questions(id);
 ALTER TABLE ONLY public.questions
