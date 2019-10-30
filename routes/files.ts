@@ -4,7 +4,7 @@ const multer = require("multer");
 const upload = multer();
 const client = require("../utils/apollo");
 
-const { ADD_FILE } = require("../utils/queries");
+const { ADD_FILE, GET_FILE } = require("../utils/queries");
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -14,11 +14,11 @@ const s3 = new AWS.S3({
 router.post("/upload", upload.single("file"), function(req, res) {
   const { file } = req;
   const { companyId, title } = req.body;
-  const key = `${file.originalname}:${Date.now()}`;
+  const key = `${Date.now()}-${file.originalname}`;
   try {
     s3.upload(
       {
-        Bucket: "travelwise-test",
+        Bucket: `travelwise-test/${companyId}`,
         Key: key,
         Body: file.buffer
       },
@@ -42,6 +42,26 @@ router.post("/upload", upload.single("file"), function(req, res) {
   } catch (err) {
     res.status(400).send(err);
   }
+});
+
+router.post("/download", function(req, res) {
+  const { fileId: id, companyId } = req.body;
+  client
+    .query({
+      variables: {
+        id
+      },
+      query: GET_FILE
+    })
+    .then(({ data }) => {
+      const options = {
+        Bucket: `travelwise-test/${companyId}`,
+        Key: data.files[0].key
+      };
+      res.attachment(data.files[0].key);
+      const fileStream = s3.getObject(options).createReadStream();
+      fileStream.pipe(res);
+    });
 });
 
 module.exports = router;

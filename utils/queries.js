@@ -20,9 +20,20 @@ const ADD_FILE = gql`
         company_id
         location
         title
+        key
       }
     }
   }
 `;
 
-module.exports = { ADD_FILE };
+const GET_FILE = gql`
+  query($id: Int!) {
+    files(where: { id: { _eq: $id } }) {
+      key
+      title
+      location
+    }
+  }
+`;
+
+module.exports = { ADD_FILE, GET_FILE };
