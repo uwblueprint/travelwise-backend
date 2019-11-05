@@ -6,19 +6,18 @@ const companies = require("./companies");
 // BIG SCARY CONSTANT.
 const BCRYPT_ROUNDS = 10;
 
-const auth = {
+const AuthService = {
   signup: ({ password, token, ...otherFields }, { admin }) => {
     // Hash password.
     const hash = bcrypt.hashSync(password, BCRYPT_ROUNDS);
-    if (admin)
-      return users.create({ passwordHash: hash, ...otherFields }, { admin });
+    if (admin) return users.create({ passwordHash: hash, ...otherFields }, { admin });
 
     const comp = companies.findByToken(token);
-    if (!comp) throw new Error("Invalid company invite token.");
+    if (!comp) throw new Error("auth: Invalid company invite token.");
     return users.create({
       passwordHash: hash,
       companyId: comp.id,
-      ...otherFields,
+      ...otherFields
     });
   },
 
@@ -34,7 +33,7 @@ const auth = {
 
     // Password is valid, so return user.
     return user;
-  },
+  }
 };
 
-module.exports = auth;
+module.exports = AuthService;

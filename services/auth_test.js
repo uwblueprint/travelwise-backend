@@ -1,3 +1,10 @@
+/**
+ * TODO:
+ * BALLISTIC MISSILE THREAT INBOUND TO HAWAII.
+ * SEEK IMMEDIATE SHELTER.
+ * THIS IS NOT A DRILL.
+ */
+
 const auth = require("./auth");
 const users = require("./users");
 

@@ -4,7 +4,7 @@ const randomWords = require("random-words");
 
 const FAKE_COMPANIES_REPO = {};
 
-const companies = {
+const CompanyService = {
   create({ name }) {
     const id = uuid();
     const token = randomWords(4).join("-");
@@ -25,4 +25,4 @@ const companies = {
   obfuscate: c => omit(c, "token")
 };
 
-module.exports = companies;
+module.exports = CompanyService;

@@ -3,7 +3,7 @@ const omit = require("lodash/omit");
 
 const FAKE_USERS_REPO = {};
 
-const users = {
+const UserService = {
   create({ email, passwordHash, companyId }, options = {}) {
     const { admin = false } = options;
     const id = uuid();
@@ -26,4 +26,4 @@ const users = {
   obfuscate: user => omit(user, "passwordHash")
 };
 
-module.exports = users;
+module.exports = UserService;

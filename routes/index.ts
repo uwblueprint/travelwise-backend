@@ -2,36 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 // Import services.
-const auth = require("../services/auth");
 const users = require("../services/users");
 const companies = require("../services/companies");
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
-});
-
-router.post("/signup", (req, res) => {
-  // Sign up with fields from request body.
-  const user = auth.signup(req.body, {
-    // TODO: Protect this parameter somehow.
-    admin: req.query.debugCreateAdmin === "true",
-  });
-
-  req.session.user = user;
-  res.send(users.obfuscate(user));
-});
-
-router.post("/login", (req, res) => {
-  // Login with fields from request body.
-  const user = auth.login(req.body);
-  req.session.user = user;
-  res.send(users.obfuscate(user));
-});
-
-router.post("/logout", (req, res) => {
-  req.session.destroy();
-  res.send("Logout successful.");
 });
 
 router.get("/me", (req, res) => {
