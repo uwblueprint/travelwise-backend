@@ -6,6 +6,7 @@ const ADD_FILE = gql`
     $location: String!
     $title: String!
     $key: String!
+    $fileSize: String!
   ) {
     insert_files(
       objects: {
@@ -13,6 +14,7 @@ const ADD_FILE = gql`
         location: $location
         title: $title
         key: $key
+        file_size: $fileSize
       }
     ) {
       returning {
@@ -32,6 +34,8 @@ const GET_FILE = gql`
       key
       title
       location
+	  date_created
+	  file_size
     }
   }
 `;
