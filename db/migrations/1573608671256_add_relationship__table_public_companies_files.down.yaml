@@ -1,0 +1,6 @@
+- args:
+    relationship: from_company
+    table:
+      name: companies_files
+      schema: public
+  type: drop_relationship

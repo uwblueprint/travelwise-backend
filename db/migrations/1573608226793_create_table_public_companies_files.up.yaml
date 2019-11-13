@@ -1,0 +1,11 @@
+- args:
+    sql: CREATE TABLE "public"."companies_files"("companies_files_id" serial NOT NULL,
+      "company_id" integer NOT NULL, "file_id" integer NOT NULL, PRIMARY KEY ("companies_files_id")
+      , FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON UPDATE
+      cascade ON DELETE cascade, FOREIGN KEY ("file_id") REFERENCES "public"."files"("id")
+      ON UPDATE cascade ON DELETE cascade, UNIQUE ("companies_files_id"));
+  type: run_sql
+- args:
+    name: companies_files
+    schema: public
+  type: add_existing_table_or_view

@@ -1,0 +1,4 @@
+- args:
+    sql: ALTER TABLE "public"."companies_files" ADD COLUMN "from_company_id" serial
+      NOT NULL;
+  type: run_sql

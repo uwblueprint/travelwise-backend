@@ -1,0 +1,8 @@
+- args:
+    name: from_company
+    table:
+      name: companies_files
+      schema: public
+    using:
+      foreign_key_constraint_on: from_company_id
+  type: create_object_relationship

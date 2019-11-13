@@ -1,0 +1,6 @@
+- args:
+    sql: "\n           alter table \"public\".\"companies_files\"\n           add
+      constraint \"companies_files_from_company_id_fkey\" \n           foreign key
+      (\"from_company_id\") \n           references \"public\".\"companies\"\n           (\"id\")
+      on update restrict on delete restrict;\n      "
+  type: run_sql
