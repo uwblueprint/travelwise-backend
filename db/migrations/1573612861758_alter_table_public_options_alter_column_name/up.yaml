@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "public"."options" ALTER COLUMN "name" TYPE varchar;
+  type: run_sql
+- args:
+    sql: COMMENT ON COLUMN "public"."options"."name" IS E''
+  type: run_sql
+- args:
+    sql: alter table "public"."options" rename column "name" to "value";
+  type: run_sql

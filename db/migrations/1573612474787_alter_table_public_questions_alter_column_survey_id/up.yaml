@@ -1,0 +1,6 @@
+- args:
+    sql: ALTER TABLE "public"."questions" ALTER COLUMN "survey_id" TYPE int4;
+  type: run_sql
+- args:
+    sql: COMMENT ON COLUMN "public"."questions"."survey_id" IS E''
+  type: run_sql
