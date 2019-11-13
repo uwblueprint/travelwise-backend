@@ -3,7 +3,6 @@ const AWS = require("aws-sdk");
 const multer = require("multer");
 const upload = multer();
 const client = require("../utils/apollo.ts");
-const fileHelper = require("../utils/fileHelper.ts");
 const { calculateFileSize } = require("../utils/fileHelper.ts");
 const { ADD_FILE, GET_FILE } = require("../utils/queries.ts");
 
@@ -32,8 +31,8 @@ router.post("/upload", upload.single("file"), function(req, res) {
               companyId,
               location: Location,
               title: title ? title : file.originalname,
-			  key,
-			  fileSize: calculateFileSize(file.size)
+              key,
+              fileSize: calculateFileSize(file.size)
             }
           })
           .then(({ data }) => {
