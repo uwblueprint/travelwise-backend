@@ -1,0 +1,4 @@
+- args:
+    sql: "\n          alter table \"public\".\"companies_files\" drop constraint \"companies_files_from_company_id_fkey\"\n
+      \     "
+  type: run_sql

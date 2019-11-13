@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "public"."companies_files" ALTER COLUMN "company_id" TYPE int4;
+  type: run_sql
+- args:
+    sql: COMMENT ON COLUMN "public"."companies_files"."company_id" IS E''
+  type: run_sql
+- args:
+    sql: alter table "public"."companies_files" rename column "company_id" to "to_company_id";
+  type: run_sql
