@@ -1,0 +1,4 @@
+- args:
+    sql: ALTER TABLE "public"."surveys" ADD COLUMN "active" boolean NOT NULL DEFAULT
+      false;
+  type: run_sql
