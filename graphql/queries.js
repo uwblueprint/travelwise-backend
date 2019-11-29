@@ -1,6 +1,6 @@
 const gql = require("graphql-tag");
 
-const ADD_FILE = gql`
+module.exports.ADD_FILE = gql`
   mutation addFile(
     $companyId: Int!
     $location: String!
@@ -26,7 +26,7 @@ const ADD_FILE = gql`
   }
 `;
 
-const GET_FILE = gql`
+module.exports.GET_FILE = gql`
   query($id: Int!) {
     files(where: { id: { _eq: $id } }) {
       key
@@ -35,5 +35,3 @@ const GET_FILE = gql`
     }
   }
 `;
-
-module.exports = { ADD_FILE, GET_FILE };

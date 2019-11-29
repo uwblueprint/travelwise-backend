@@ -10,9 +10,8 @@ const logger = require("morgan");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const indexRouter = require("./routes/index.ts");
-const usersRouter = require("./routes/users.ts");
-const filesRouter = require("./routes/files.ts");
+const routes = require("./routes");
+const graphqlServer = require("./graphql/server");
 
 const corsOptions = {
   origin: "*",
@@ -49,17 +48,17 @@ app.use(lessMiddleware(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors(corsOptions));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/files", filesRouter);
+app.use("/", routes);
+
+graphqlServer.applyMiddleware({ app });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  next(createError(404, "Not found."));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};

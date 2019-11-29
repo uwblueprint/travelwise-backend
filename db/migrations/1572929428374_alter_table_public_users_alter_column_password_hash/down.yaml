@@ -1,0 +1,10 @@
+- args:
+    sql: ALTER TABLE "public"."users" ALTER COLUMN "password_hash" TYPE character
+      varying;
+  type: run_sql
+- args:
+    sql: COMMENT ON COLUMN "public"."users"."password_hash" IS E'null'
+  type: run_sql
+- args:
+    sql: alter table "public"."users" rename column "pass_hash" to "password_hash";
+  type: run_sql

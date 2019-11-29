@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "public"."users" ALTER COLUMN "admin" TYPE bool;
+  type: run_sql
+- args:
+    sql: ALTER TABLE ONLY "public"."users" ALTER COLUMN "admin" SET DEFAULT false;
+  type: run_sql
+- args:
+    sql: COMMENT ON COLUMN "public"."users"."admin" IS E''
+  type: run_sql

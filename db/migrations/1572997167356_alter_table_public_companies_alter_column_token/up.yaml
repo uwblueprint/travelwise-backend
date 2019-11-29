@@ -1,0 +1,12 @@
+- args:
+    sql: ALTER TABLE "public"."companies" ALTER COLUMN "token" TYPE varchar;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "public"."companies" ALTER COLUMN "token" SET NOT NULL;
+  type: run_sql
+- args:
+    sql: COMMENT ON COLUMN "public"."companies"."token" IS E''
+  type: run_sql
+- args:
+    sql: alter table "public"."companies" rename column "token" to "invite_code";
+  type: run_sql

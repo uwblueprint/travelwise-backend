@@ -1,8 +1,8 @@
-const ApolloClient = require("apollo-boost").default;
+const { default: ApolloClient } = require("apollo-boost");
 const fetch = require("node-fetch");
 
 const client = new ApolloClient({
-  uri: "https://travelwise-hasura.herokuapp.com/v1/graphql",
+  uri: process.env.HASURA_GRAPHQL_URL,
   headers: {
     "X-Hasura-Admin-Secret": process.env.HASURA_GRAPHQL_ADMIN_SECRET
   },

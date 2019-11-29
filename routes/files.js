@@ -2,9 +2,9 @@ var router = require("express").Router();
 const AWS = require("aws-sdk");
 const multer = require("multer");
 const upload = multer();
-const client = require("../utils/apollo");
+const apollo = require("../graphql/apollo");
 
-const { ADD_FILE, GET_FILE } = require("../utils/queries");
+const { ADD_FILE, GET_FILE } = require("../graphql/queries");
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -24,7 +24,7 @@ router.post("/upload", upload.single("file"), function(req, res) {
       },
       (err, { Location }) => {
         if (err) throw err;
-        client
+        apollo
           .mutate({
             mutation: ADD_FILE,
             variables: {

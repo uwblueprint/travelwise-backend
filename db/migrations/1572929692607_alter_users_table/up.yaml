@@ -1,0 +1,8 @@
+- args:
+    cascade: false
+    sql: |-
+      ALTER TABLE ONLY public.users ALTER COLUMN email TYPE VARCHAR(512);
+      ALTER TABLE ONLY public.users ALTER COLUMN first_name TYPE VARCHAR(256);
+      ALTER TABLE ONLY public.users ALTER COLUMN last_name TYPE VARCHAR(256);
+      ALTER TABLE ONLY public.users ALTER COLUMN pass_hash TYPE VARCHAR(64);
+  type: run_sql
