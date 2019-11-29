@@ -1,2 +1,3 @@
 # travelwise-backend
-Travelwise Backend containing Hasura config (SQL Migration) &amp; Node auth server
+
+_Travelwise API server and Hasura config + migrations._

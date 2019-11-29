@@ -1,0 +1,8 @@
+- args:
+    definition:
+      forward_client_headers: false
+      headers: []
+      timeout_seconds: 60
+      url: https://travelwise.stevenxie.me/api/graphql
+    name: travelwise-api
+  type: add_remote_schema

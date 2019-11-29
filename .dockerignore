@@ -1,0 +1,8 @@
+node_modules/
+
+/README.md
+/.env
+
+# TBH I'm not sure why these paths exist at all.
+/public/
+/views/

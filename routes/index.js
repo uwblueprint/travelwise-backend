@@ -37,14 +37,12 @@ router.post("/logout", (req, res) => {
 
 router.get("/webhook", ({ session }, res) => {
   const { user } = session;
-  console.log(user);
   const headers = { "X-Hasura-Role": "anonymous" };
   if (user) {
     headers["X-Hasura-Role"] = user.admin ? "admin" : "user";
     headers["X-Hasura-ID"] = user.id.toString();
   }
   res.send(headers);
-  console.log(headers);
 });
 
 module.exports = router;
