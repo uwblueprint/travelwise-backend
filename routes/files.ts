@@ -4,7 +4,7 @@ const multer = require("multer");
 const upload = multer();
 const client = require("../utils/apollo.ts");
 const { calculateFileSize } = require("../utils/fileHelper.ts");
-const { ADD_FILE, GET_FILE } = require("../utils/queries.ts");
+const { ADD_FILE, GET_FILE, ADD_COMPANY_FILE } = require("../utils/queries.ts");
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -12,23 +12,26 @@ const s3 = new AWS.S3({
 });
 
 router.post("/upload", upload.single("file"), function(req, res) {
-  const { file } = req;
-  const { companyId, title } = req.body;
-  const key = `${Date.now()}-${file.originalname}`;
   try {
+    const { file } = req;
+    const { toCompanyId, title, fromCompanyId } = req.body;
+    const key = `${Date.now()}-${file.originalname}`;
+
+    // upload file to s3
     s3.upload(
       {
-        Bucket: `travelwise-test/${companyId}`,
+        Bucket: `travelwise-test/${fromCompanyId}`,
         Key: key,
         Body: file.buffer
       },
       (err, { Location }) => {
         if (err) throw err;
+        // add file entry to postgres
         client
           .mutate({
             mutation: ADD_FILE,
             variables: {
-              companyId,
+              companyId: fromCompanyId,
               location: Location,
               title: title ? title : file.originalname,
               key,
@@ -36,7 +39,17 @@ router.post("/upload", upload.single("file"), function(req, res) {
             }
           })
           .then(({ data }) => {
-            res.send(data.insert_files.returning);
+            const fileData = data.insert_files.returning[0];
+
+            // add company file entry to postgres
+            client
+              .mutate({
+                mutation: ADD_COMPANY_FILE,
+                variables: { toCompanyId, fromCompanyId, fileId: fileData.id }
+              })
+              .then(() => {
+                res.send(fileData);
+              });
           });
       }
     );

@@ -28,16 +28,34 @@ const ADD_FILE = gql`
   }
 `;
 
+const ADD_COMPANY_FILE = gql`
+  mutation addCompanyFile(
+    $fromCompanyId: Int!
+    $toCompanyId: Int!
+    $fileId: Int!
+  ) {
+    insert_companies_files(
+      objects: {
+        from_company_id: $fromCompanyId
+        to_company_id: $toCompanyId
+        file_id: $fileId
+      }
+    ) {
+      affected_rows
+    }
+  }
+`;
+
 const GET_FILE = gql`
   query($id: Int!) {
     files(where: { id: { _eq: $id } }) {
       key
       title
       location
-	  date_created
-	  file_size
+      date_created
+      file_size
     }
   }
 `;
 
-module.exports = { ADD_FILE, GET_FILE };
+module.exports = { ADD_FILE, GET_FILE, ADD_COMPANY_FILE };
