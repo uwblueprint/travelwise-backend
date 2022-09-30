@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@hapi/cryptiles": ">=4.1.2",
-    "@hapi/hoek": ">=4.2.1",
+    "@hapi/hoek": ">=9.0.4",
     "@types/express": "^4.17.1",
     "@types/node-fetch": "^2.5.3",
     "apollo-boost": "^0.4.4",
